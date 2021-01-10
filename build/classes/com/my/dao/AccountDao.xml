@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.my.dao.AccountDao">
+    <select id="loginByName" parameterType="String"
+        resultType="Account">
+        
+      select * from tb_account where loginname = #{loginname}
+       
+      </select>
+
+
+    <insert id="customerRegister" parameterType="Account"
+    keyProperty="id" useGeneratedKeys="true">
+        
+        insert into tb_account 
+        (name, loginname, password, phone)
+        values
+        (#{name}, #{loginname}, #{password}, #{phone})
+        
+    </insert>
+    
+    <!-- 判断该账户是否已存在 -->
+    <select id="isAccountExistence" parameterType="String"
+        resultType="String">
+        
+        SELECT IFNULL((SELECT 'Y' from 
+        tb_account where loginname = #{loginname} 
+        limit 1),'N')
+        
+        </select>
+    
+    <!-- 修改用户密码 -->
+    <update id="changeCusPassword" parameterType="Account">
+        
+         update tb_account 
+         set 
+         password = #{password} 
+         where id = #{id}
+    </update>
+    
+    
+</mapper>

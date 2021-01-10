@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.my.dao.OrderDao">
+
+	<!-- --> <select id="showOrderList" resultType="OrderInfo"
+		parameterType="String">
+		select * from
+		tb_order
+		where
+		senderphone = #{phone}
+	</select>
+    
+    
+    
+
+	<select id="showOrderListCount" resultType="Integer"
+		parameterType="String">
+
+		select count(*)
+		from
+		tb_order
+		where
+		senderphone = #{phone}
+	</select>
+
+
+
+
+	<insert id="addOrder" parameterType="OrderInfo" keyProperty="id"
+		useGeneratedKeys="true">
+		insert
+		into
+		tb_order
+		(sender, senderphone, origin,
+		addressee, addresseephone, end, price, createtime, state, info_id)
+		values
+		(#{sender},
+		#{senderphone}, #{origin},
+		#{addressee}, #{addresseephone},
+		#{end}, #{price}, #{createtime}, #{state}, #{info_id})
+
+	</insert>
+
+
+	<insert id="addShipOrder" parameterType="ShippingOrder"
+		keyProperty="id" useGeneratedKeys="true">
+
+		insert into
+		tb_shippingaddress
+		(username, phone, express, pickupcode, address)
+		values
+		(#{username}, #{phone}, #{express}, #{pickupcode}, #{address})
+
+	</insert>
+
+
+	<insert id="addUpOrder" parameterType="UpOrderInfo" keyProperty="id"
+		useGeneratedKeys="true">
+		insert into
+		tb_upOrder
+		(express, sender, senderphone, senderprovice,
+		sendercity, senderdistrict, address, weight, addressee, addresseephone,
+		addresseeprovice, addresseecity, addresseedistrict, adaddress)
+		values
+		(#{express}, #{sender}, #{senderphone}, #{senderprovice},
+		#{sendercity}, #{senderdistrict}, #{address}, #{weight},
+		#{addressee}, #{addresseephone}, #{addresseeprovice},
+		#{addresseecity}, #{addresseedistrict}, #{adaddress})
+	</insert>
+
+    
+    <select id="findUpOrderInfoById" parameterType="Integer"
+        resultType="UpOrderInfo">
+    
+        select * from tb_uporder where id = #{id}
+    
+    </select>
+    
+    <update id="updateUpOrderInfo" parameterType="UpOrderInfo">
+    
+        update
+        tb_upOrder set
+        express=#{express}, sender=#{sender}, senderphone=#{senderphone}, 
+        senderprovice=#{senderprovice},sendercity=#{sendercity}, senderdistrict=#{senderdistrict}, address=#{address}, 
+        weight=#{weight}, addressee=#{addressee}, addresseephone=#{addresseephone}, 
+        addresseeprovice=#{addresseeprovice}, addresseecity=#{addresseecity}, 
+        addresseedistrict=#{addresseedistrict}, adaddress=#{adaddress}
+        where id = #{id}
+    
+    </update>
+    
+    
+    <update id="updateOrderInfoById" parameterType="OrderInfo">
+        
+        update tb_order
+        set
+        sender=#{sender},
+        senderphone=#{senderphone}, origin=#{origin},
+        addressee=#{addressee}, addresseephone=#{addresseephone},
+        end=#{end}, price=#{price}, createtime=#{createtime}, state=#{state}
+        where info_id=#{info_id}
+        
+                
+    </update>
+    
+    
+    <select id="findInfoIdById" parameterType="Integer" 
+    resultType="Integer">
+        
+        select info_id from tb_order where id = #{id}
+        
+    </select>
+    
+    
+    <delete id="deleteOrderById" parameterType="OrderInfo">
+    
+        delete from tb_order where id = #{id}
+    
+    </delete>
+    
+    
+    
+
+</mapper>

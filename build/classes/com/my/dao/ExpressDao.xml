@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.my.dao.ExpressDao">
+    <select id="showExpressList" parameterType="String" 
+    resultType="Express">
+        select * from tb_express where phone = #{phone}
+    </select>
+        
+     <select id="showExpressListCount" parameterType="String"
+     resultType="Integer">
+        
+        select count(*) 
+        from 
+        tb_express 
+        where 
+        phone = #{phone}
+     </select>   
+     
+     <select id="findPhoneByLogName" parameterType="String" 
+        resultType="String">
+            select phone from tb_account where loginname = #{loainname}
+        </select>
+
+     <!-- // 快递id, 唯一主键
+    private int id;
+    // 快递单号
+    private String number;
+    // 客户姓名
+    private String name;
+    // 客户手机号
+    private String phone;
+    // 物流公司
+    private String company;
+    // 快递到站时间
+    private String arrivetime;
+    // 取件码
+    private String pickupcode;
+    // 快递状态
+    private String state; -->
+     
+     <!-- <select id="getUserList" resultMap="BaseResultMap">
+        select * from user where 1=1
+        <if test="user.userId != null">
+            and user_id like CONCAT('%',#{user.userId},'%')
+        </if>
+        <if test="user.phone !=null and user.phone!=''">
+            and phone like CONCAT('%',#{user.phone},'%')
+        </if>
+        <if test="user.userLeven !=null">
+            and user_leven like CONCAT('%',#{user.userLeven},'%')
+        </if>
+        <if test="user.isEffect !=null">
+            and is_effect like CONCAT('%',#{user.isEffect},'%')
+        </if>
+        <if test="user.userCategory !=null and user.userCategory!=''">
+            and user_category like CONCAT('%',#{user.userCategory},'%')
+        </if>
+        order by create_time desc 
+        <if test="page != null and limit != null">
+            limit #{page},#{limit}
+        </if>
+    </select>
+    <select id="getUserListCount" resultType="Integer" parameterType="com.work.pojo.User">
+        select count(*) from user where 1=1
+        <if test="user.userId != null">
+            and user_id like CONCAT('%',#{user.userId},'%')
+        </if>
+        <if test="user.phone !=null and user.phone!=''">
+            and phone like CONCAT('%',#{user.phone},'%')
+        </if>
+        <if test="user.userLeven !=null">
+            and user_leven like CONCAT('%',#{user.userLeven},'%')
+        </if>
+        <if test="user.isEffect !=null">
+            and is_effect like CONCAT('%',#{user.isEffect},'%')
+        </if>
+        <if test="user.userCategory !=null and user.userCategory!=''">
+            and user_category like CONCAT('%',#{user.userCategory},'%')
+        </if>
+    </select> -->
+</mapper>
